@@ -256,7 +256,7 @@ function generateProductsSection() {
     },
   ];
 
-  const sortedProductsData = bubbleSort(productsData);
+  const sortedProductsData = reverseBubbleSort(productsData);
 
   sortedProductsData.forEach((product) => {
     const productCard = document.createElement('article');
@@ -333,4 +333,45 @@ function bubbleSort(arr) {
   } while (swapped);
 
   return arr;
+}
+
+
+
+function reverseBubbleSort(arr) {
+  const n = arr.length;
+  let swapped;
+  do {
+    swapped = false;
+    for (let i = 0; i < n - 1; i++) {
+      if (arr[i].price > arr[i + 1].price) {
+        const temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+        swapped = true;
+      }
+    }
+  } while (swapped);
+
+  return arr;
+}
+
+
+function reverseQuickSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  const pivot = arr[Math.floor(arr.length / 2)];
+  const left = [];
+  const right = [];
+
+  for (const element of arr) {
+    if (element.price > pivot.price) {
+      left.push(element);
+    } else if (element.price < pivot.price) {
+      right.push(element);
+    }
+  }
+
+  return [...quickSort(left), pivot, ...quickSort(right)];
 }
